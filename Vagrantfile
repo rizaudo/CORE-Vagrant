@@ -67,7 +67,7 @@ Vagrant.configure("2") do |config|
   # documentation for more information about their specific syntax and use.
   config.vm.provision "shell", inline: <<-SHELL
     apt-get update
-    apt-get install -y wget tcl tk libtk-img python libev4 ebtables bridge-utils python-enum34 iproute traceroute
+    apt-get install -y wget tcl tk libtk-img python libev4 ebtables bridge-utils python-enum34 iproute traceroute wireshark
     wget https://downloads.pf.itd.nrl.navy.mil/ospf-manet/quagga-0.99.21mr2.2/quagga-mr_0.99.21mr2.2_amd64.deb
     dpkg -i quagga-mr_0.99.21mr2.2_amd64.deb
     wget https://github.com/coreemu/core/releases/download/release-5.1/python-core_systemd_5.1_all.deb
