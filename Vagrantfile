@@ -66,13 +66,17 @@ Vagrant.configure("2") do |config|
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
   # documentation for more information about their specific syntax and use.
   config.vm.provision "shell", inline: <<-SHELL
-    apt-get update
-    apt-get install -y wget tcl tk libtk-img python libev4 ebtables bridge-utils python-enum34 iproute traceroute wireshark
+    export DEBIAN_FRONTEND=noninteractive
+    echo "wireshark-common        wireshark-common/install-setuid boolean true" |sudo debconf-set-selections
+    apt update
+    apt install -y -q wget tcl tk libtk-img python libev4 ebtables bridge-utils python-enum34 iproute traceroute wireshark python-lxml apache2
     wget https://downloads.pf.itd.nrl.navy.mil/ospf-manet/quagga-0.99.21mr2.2/quagga-mr_0.99.21mr2.2_amd64.deb
-    dpkg -i quagga-mr_0.99.21mr2.2_amd64.deb
-    wget https://github.com/coreemu/core/releases/download/release-5.1/python-core_systemd_5.1_all.deb
-    wget https://github.com/coreemu/core/releases/download/release-5.1/core-gui_5.1_amd64.deb
-    dpkg -i python-core_systemd_5.1_all.deb
-    dpkg -i core-gui_5.1_amd64.deb
+    wget https://github.com/coreemu/core/releases/download/release-5.2.1/python-core-ns3_5.2.1_all.deb
+    wget https://github.com/coreemu/core/releases/download/release-5.2.1/python-core_systemd_5.2.1_all.deb
+    wget https://github.com/coreemu/core/releases/download/release-5.2.1/core-gui_5.2.1_amd64.deb
+    apt install -y -q./quagga-mr_0.99.21mr2.2_amd64.deb
+    apt install -y -q ./python-core_systemd_5.2.1_all.deb ./python-core-ns3_5.2.1_all.deb
+    apt install -y -q ./core-gui_5.2.1_amd64.deb
+    usermod -aG wireshark vagrant
   SHELL
 end
